@@ -1,0 +1,344 @@
+@font-face {
+    font-family: rodondo;
+    src: url('fonts/Rodondo.otf');
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap');
+
+@font-face {
+    font-family: consola;
+    src: url('fonts/CONSOLA.TTF');
+}
+
+html {
+    height: 100%;
+}
+
+:root {
+    --dark-grey-color:#1e1e1e;
+    --light-white-color:#D9D9D9;
+    --sign-color:rgb(167, 149, 212);
+    --sign-back-color:rgb(109, 73, 150);
+    --sign-text-color:rgb(242, 238, 222);
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* webkit, opera, IE9 （谷歌浏览器）*/
+body ::selection { 
+    background:var(--sign-back-color); 
+    color:var(--sign-text-color); 
+    text-shadow: var(--sign-text-color) 0.5px 0 5px;
+}
+/* mozilla firefox（火狐浏览器） */
+::-moz-selection { 
+    background:var(--sign-back-color); 
+    color:var(--sign-text-color); 
+    text-shadow: var(--sign-text-color) 0.5px 0 5px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-image: url('image/BackgroundImage.png');
+    background-color: var(--dark-grey-color);
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    color: var(--light-white-color);
+}
+
+h1,h2,h3,h4,h5,h6 {
+    user-select: none;
+}
+
+.maincontainer {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 基础设置 */
+
+h1 {
+    font-weight: 300;
+    font-size: 5rem;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    font-weight: 100;
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+}
+
+h4 {
+    font-weight: 300;
+    font-size: 2rem;
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-weight: 100;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+/* 字号设置 */
+
+header {
+    z-index: 9999;
+    flex: 0 0 auto;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    transition: transform 0.5s ease;
+}
+
+header.hidden {
+    transform: translateY(-85%);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+}
+
+.logo {
+    font-family: rodondo;
+    font-size: 1.2rem;
+    margin-left: 3%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+ul.in-nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    margin-right: 3%;
+}
+
+nav ul li {
+    font-size: 1rem;
+}
+
+nav a:link,a:visited {
+    text-decoration: none;
+    color: var(--light-white-color);
+    text-transform:uppercase;
+}
+
+nav ul a:link,a:visited {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin: 0;
+}
+
+nav ul a:hover,a:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 顶栏结束 */
+
+.centercontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height:20rem;
+    padding: 0;
+    padding-top: 6rem;
+}
+
+h1.mainpage,h3.mainpage {
+    margin: 0;
+    padding: 0.1rem;
+}
+
+/* 标题结束 */
+
+.link-btns {
+    display: flex;
+    justify-content: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5rem;
+}
+
+.link-btn {
+    background: rgba(40, 40, 40, 0.4);
+    border-radius: 20px;
+    text-align: center;
+    width: 300px;
+    padding: 1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 2rem;
+    margin: 1rem;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+div.link-btn p {
+    margin-top: 1rem;
+}
+
+.link-btns a.link-btn {
+    text-decoration: none;
+    color: var(--light-white-color);
+    text-transform:uppercase;
+}
+
+.link-btns a:hover,.link-btns a:active {
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--sign-color);
+}
+
+.iconbtn {
+    text-align: center;
+    width: 200px;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+a.iconbtn {
+    text-decoration: none;
+    color: var(--light-white-color);
+}
+
+a.iconbtn:hover,a.iconbtn:active {
+    color: var(--sign-color);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+/* 三块结束 */
+
+footer {
+    bottom: 0;
+    left: 17rem;
+    flex: 0 0 auto;
+    font-family: consola;
+    font-size: 0.2rem;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+footer a{
+    color: var(--light-white-color);
+    text-transform:uppercase;
+}
+
+/* 底部结束 */
+
+
+
+
+/* 子主页相关 */
+
+.lefttitle {
+    flex-shrink: 0;
+    flex-grow: 1;
+    padding-top: 10rem;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+.lefttitle h4 {
+    padding-bottom: 0;
+    margin-bottom: -1rem;
+    padding-left: 0.3rem;
+}
+
+.lefttitle h1 {
+    padding-top: 0;
+    margin-top: 0;
+    border-bottom: 3px solid var(--light-white-color);
+}
+
+.lefttitle p {
+    padding-top: 1.5rem;
+    padding-left: 0.2rem;
+    width: 46%;
+}
+
+.lefttitle img {
+    margin-top: 2rem;
+}
+
+.longmenu {
+    margin-left: 4%;
+    margin-right: 4%;
+    border: 3px solid var(--light-white-color);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 5rem;
+}
+
+.leftcontainer h3 {
+    border-bottom: 2px solid var(--light-white-color);
+}
+
+.leftcontainer h4 {
+    padding-top: 2rem;
+    border-bottom: 1px solid var(--light-white-color);
+}
+
+.leftcontainer p {
+    padding-top: 1.5rem;
+    line-height: 160%;
+}
+
+.listcontainer {
+    display: flex;
+    justify-content:flex-start;
+    width: 80%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 0.8rem;
+}
+
+ul.mainlst {
+    list-style-position: outside;
+    overflow: hidden;
+    margin-left: 0;
+    width: 50%;
+}
+
+.listcontainer li {
+    padding-top: 0.8rem;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.listcontainer a {
+    text-decoration: none;
+    color: var(--light-white-color);
+}
+
+.listcontainer a:hover,.listcontainer a:active {
+    color: var(--sign-color);
+}

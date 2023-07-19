@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>  
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迭代器们的对话</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="rw-ui.css">
+    <link rel="stylesheet" href="chooseboxstyle.css">
+    <style>
+        #iterator-selector {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: flex-end;
+
+        }
+    </style>
+    <base target="_blank">
+</head>
+
+<body>
+
+    <header style="display: none;">
+        <nav>
+            <a class="logo" href="../../mainpage.html">Rain World<br>Script Research</a>
+            <ul class="in-nav">
+                <li class="nav-show">
+                    <a href="../../assetspage.html">资产</a>
+                </li>
+                <li class="nav-show">
+                    <a href="../../commentspage.html">评论</a>
+                </li>
+                <li class="nav-show">
+                    <a href="../../aboutpage.html">关于</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 顶栏结束 -->
+
+    <div class="maincontainer">
+
+        <div class="lefttitle">
+            <h4>Iterator's Comments</h4>
+            <h1>迭代器们的对话</h1>
+            <p>这里包含：当蛞蝓猫把各种物品拿给迭代器们看时祂们所说的话，和矛大师限定的广播内容。它们透露了游戏中的绝大多数剧情——以及99%的文本内容。</p>
+            <button id="show-button" class="rw-ui"><span>点击查看</span></button>
+        </div>
+
+        <div class="choosebox-container">
+            <div class="choosebox">
+                <div class="left-box">
+                    <form name="itemkind" class="item-kind-select" id="item-kind-selector"></form>
+                    <div class="checklabel"><label class="checklabel"><input id="color-select-checkbox" class="mui-switch mui-switch-anim" type="checkbox" onclick="colorornot()">开启标识颜色</label></div>
+                </div>
+                <div class="left-box">
+                    <form name="pearl" class="pearl-select" id="pearl-selector" style="display:flex"></form>
+                </div>
+                <div class="left-box">
+                    <form name="broadcast" class="broadcast-select" id="broadcast-selector" style="display:none"></form>
+                </div>
+                <div class="left-box">
+                    <form name="object" class="object-select" id="object-selector" style="display:none"></form>
+                </div>
+                <div class="descript-box" id="description">
+                    <p>这里会说明你所选中的对象在游戏中的基本信息</p>
+                </div>
+                <div class="descript-box" id="comment" style="display: none;">
+                    <p>这里会写一些小编(?)的内心OS</p>
+                </div>
+            </div>
+            <div class="viewing-box">
+                <div class="iterator-box">
+                    <div id="whotoldyou">
+                        <p>这里放置的是所有的说明文字</p>
+                    </div>
+                    <form name="iterator" class="iterator-select" id="iterator-selector"></form>
+                </div>
+                <div class="context-box" id="context">
+                    <p>在左侧第一栏中，你可以选择“珍珠”、“广播”、“物品”的其中一种进行查看</p>
+                    <p>随后在第二栏中选择你需要查看的具体对象</p>
+                    <p>悬停鼠标可以预查看一些信息</p>
+                    <p>只有“珍珠”存在本区域右上角的迭代器选择栏，因为广播不存在迭代器解读、物品只有仰望皓月才能解读</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 主体内容结束 -->
+
+    <footer class="bottom">
+        <p>
+            Code on <a href="https://github.com/">Github</a> | Designed by <a href="https://github.com/pinowine">pinowine</a> with <a href="https://www.figma.com/community">Figma</a> and <a href="https://code.visualstudio.com/">VSCode</a><br><a href="https://store.steampowered.com/app/312520/Rain_World/">Rain World</a> is property of <a href="https://videocultmedia.com/">Vediocult</a> | Special Thanks to <a href="https://rainworld.miraheze.org/wiki/Rain_World_Wiki">Official Rain World Wiki</a> and <a href="https://rain-world-map.github.io/">Interactive Rain World Map</a>
+        </p>
+    </footer>
+
+    <!-- 底部致谢 -->
+
+    <script src="../../main.js"></script>
+
+    <script>
+
+        // 颜色选择
+
+        var itercolor = [".bsm",".fp",".nsh",".cw",".srs",".ngi",".uu",".hf",".gs",".hr",".si",".em",".eoc",".wo"]
+        var itercolorwhite = [".bsm.white-p",".fp.white-p",".nsh.white-p",".cw.white-p",".srs.white-p",".ngi.white-p",".uu.white-p",".hf.white-p",".gs.white-p",".hr.white-p",".si.white-p",".em.white-p",".eoc.white-p",".wo.white-p"]
+
+        function colorornot(){
+            const flag = document.getElementById('color-select-checkbox').checked
+            let elements=[]
+            if (flag === true) {
+                elements = document.querySelectorAll(itercolorwhite.join(','))
+                elements.forEach(element => {
+                    element.classList.remove('white-p');
+                })               
+            } else {
+                elements = document.querySelectorAll(itercolor.join(","))
+                elements.forEach(element => {
+                    element.classList.add('white-p');
+                })                                  
+            }
+        }
+
+        // 按钮事件
+
+        var showbutton = document.getElementById('show-button');
+        var fadeoutbox = document.querySelector('.lefttitle');
+        var fadeinbox = document.querySelector('.choosebox-container');
+        var fadeoutfoot = document.querySelector(".bottom");
+
+        showbutton.addEventListener('click', function() {
+            fadeoutbox.classList.add('fade-out');
+            fadeinbox.classList.add('fade-in');
+            fadeoutfoot.classList.add('fade-out');
+        });
+
+
+        // 类型选择器生成
+        
+        var item_kind = {
+
+            "pearl" : {
+                "startingiterator" : "lttm",
+                "iterators" : {
+                    "lttm-past" : "仰望皓月（崩塌前）",
+                    "lttm" : "仰望皓月",
+                    "lttm-future" : "仰望皓月（未来）",
+                    "fp" : "五块卵石"
+                },
+                "description" : "珍珠"
+            },
+
+            "broadcast" : {
+                "iterators" : {},
+                "description" : "广播"
+            },
+
+            "object" : {
+                "startingiterator" : "lttm",
+                "iterators" : {
+                    "lttm" : "仰望皓月"
+                },
+                "description" : "物品"
+            }
+
+        }
+
+        var kind_name = {
+            "pearl" : "珍珠",
+            "broadcast" : "广播",
+            "object" : "物品"
+        }
+
+        var html1 = "";
+        for (const kind in item_kind) {
+            var category = item_kind[kind] 
+            html1 += `
+                <label class="selector-btn" id="${kind}">
+                    <input type="radio" class="rw-ui" name="kinds" onclick="selectkind('${kind}');firstkind('${kind}');colorornot()" autocomplete="off" value="${kind}">
+                    <img src="image/kinds/${kind}.png">
+                    <div class="tips">
+                        <span class="tiptext">${kind_name[kind]}</span>
+                    </div>
+                </label>
+            `;
+            document.getElementById('item-kind-selector').innerHTML = html1
+
+        }
+
+        function selectkind(n) {
+            document.getElementById("comment").innerHTML = "<p>这里会写一些小编(?)的内心OS</p>"
+            document.getElementById("whotoldyou").style.display = "none"
+            if (n=="pearl") {
+                document.getElementById('pearl-selector').style.display = "flex"
+                document.getElementById('broadcast-selector').style.display = "none"
+                document.getElementById('object-selector').style.display = "none"
+                document.getElementById("description").innerHTML = "这里陈列着各种各样的珍珠"
+                document.getElementById("whotoldyou").style.display = "flex"
+            }
+            else if (n=="broadcast") {
+                document.getElementById('pearl-selector').style.display = "none"
+                document.getElementById('broadcast-selector').style.display = "flex"
+                document.getElementById('object-selector').style.display = "none"
+                document.getElementById("description").innerHTML = "矛大师能见到的所有广播"
+            }
+            else {
+                document.getElementById('pearl-selector').style.display = "none"
+                document.getElementById('broadcast-selector').style.display = "none"
+                document.getElementById('object-selector').style.display = "flex"
+                document.getElementById("description").innerHTML = "仰望皓月会对你给她运去的各种物品进行评价"
+                document.getElementById("whotoldyou").style.display = "flex"
+            }
+        }
+        
+
+        // 珍珠生成
+
+        var pearl_color = {
+            "yellow" : "Icon of Shoreline yellow pearl",
+            "purple" : "Icon of Shoreline purple pearl",
+            "magenta" : "Icon of Shoreline magenta pearl",
+            "dark green" : "Icon of Sky Islands dark green pearl",
+            "midnight blue" : "Icon of Sky Islands midnight blue pearl",
+            "dark purple" : "Icon of Sky Islands dark purple pearl",
+            "swampy green" : "Icon of Sky Islands swampy green pearl",
+            "SI dark fuchsia" : "Icon of Sky Islands dark fuchsia pearl",
+            "SB dark fuchsia" : "Icon of Subterranean dark fuchsia pearl",
+            "teal" : "Icon of Filtration System teal pearl",
+            "light blue" : "Icon of Outskirts light blue pearl",
+            "pale pink" : "Icon of Outskirts pale pink pearl",
+            "blue" : "Icon of Industrial Complex blue pearl",
+            "turquiose" : "Icon of Garbage Wastes turquoise pearl",
+            "lime" : "Icon of Garbage Wastes Past lime pearl",
+            "green" : "Icon of Drainage System green pearl",
+            "dark pink" : "Icon of Shaded Citadel dark pink pearl",
+            "gold" : "Icon of Chimney Canopy gold pearl",
+            "violet" : "Icon of Pipeyard violet pearl",
+            "ashy green" : "Icon of The Wall ashy green pearl",
+            "red" : "Icon of Farm Arrays red pearl",
+            "pink" : "Icon of Farm Arrays pink pearl",
+            "light purple" : "Icon of Outer Expanse light purple pearl",
+            "deep green" : "Icon of Metropolis deep green pearl",
+            "orange" : "Icon of Metropolis orange pearl",
+            "FP music" : "Icon of colored pearl",
+            "hunter" : "Icon of Hunters stomach pearl",
+            "MS bright yellow" : "Icon of Submerged Superstructure bright yellow pearl",
+            "DM bright yellow" : "Icon of Submerged Superstructure bright yellow pearl",
+            "spearmaster stomach" : "Icon of Spearmasters extracted pearl",
+            "rivulet stomach" : "Icon of Rivulets stomach pearl",
+            "white" : "RWPearl"
+        }
+
+        var pearl_name = {
+            "yellow" : "黄色",
+            "purple" : "紫色",
+            "magenta" : "品红",
+            "dark green" : "暗绿",
+            "midnight blue" : "午夜蓝",
+            "dark purple" : "暗紫",
+            "swampy green" : "沼泽绿",
+            "SI dark fuchsia" : "暗紫红",
+            "SB dark fuchsia" : "暗紫红",
+            "teal" : "蓝绿",
+            "light blue" : "亮蓝",
+            "pale pink" : "淡粉",
+            "blue" : "蓝色",
+            "turquiose" : "绿松石",
+            "lime" : "青柠",
+            "green" : "绿色",
+            "dark pink" : "暗粉",
+            "gold" : "金色",
+            "violet" : "紫罗兰",
+            "ashy green" : "灰绿",
+            "red" : "红色",
+            "pink" : "粉色",
+            "light purple" : "浅紫",
+            "deep green" : "深绿",
+            "orange" : "橙色",
+            "FP music" : "赞美诗",
+            "hunter" : "猎手",
+            "MS bright yellow" : "明黄",
+            "DM bright yellow" : "明黄",
+            "spearmaster stomach" : "矛大师",
+            "rivulet stomach" : "溪流",
+            "white" : "普通"
+        }
+
+        var html2 = "";
+        for (const color in pearl_color) {
+
+            var icon2 = pearl_color[color]
+            html2 += `
+                <label class="selector-btn" id="${color}">
+                    <input type="radio" class="rw-ui" name="pearls" onclick="selectpearl('${color}');firstpearl('${color}');colorornot()" autocomplete="off" value="${color}">
+                    <img src="image/pearls/${icon2}.png">
+                    <div class="tips">
+                        <span class="tiptext">${pearl_name[color]}</span>
+                    </div>
+                </label>`;
+            document.getElementById('pearl-selector').innerHTML = html2;
+        }
+
+        // 广播生成
+
+        var broadcast_color = {
+
+            "white" : {
+                "img" : "Icon of white broadcast",
+                "script" : "拜访五块卵石之前的联通广播",
+                "name" : "白色"
+            },
+
+            "grey" : {
+                "img" : "Icon of gray broadcast",
+                "script" : "拜访五块卵石之后的联通广播",
+                "name" : "灰色"
+            },
+
+            "light-blue" : {
+                "img" : "Icon of light blue broadcast",
+                "name" : "亮蓝"
+            },
+
+            "green" : {
+                "img" : "Icon of green broadcast",
+                "name" : "绿色"
+            },
+
+            "orange" : {
+                "img" : "Icon of orange broadcast",
+                "name" : "橙色"
+            },
+
+            "lime-1" : {
+                "img" : "Icon of lime broadcast",
+                "name" : "青柠"
+            },
+
+            "lime-2" : {
+                "img" : "Icon of lime broadcast",
+                "name" : "青柠"
+            },
+
+            "lime-3" : {
+                "img" : "Icon of lime broadcast",
+                "name" : "青柠"
+            },
+
+            "purple" : {
+                "img" : "Icon of purple broadcast",
+                "name" : "紫色"
+            },
+            
+            "teal-1" : {
+                "img" : "Icon of teal broadcast",
+                "name" : "蓝绿"
+            },
+
+            "teal-2" : {
+                "img" : "Icon of teal broadcast",
+                "name" : "蓝绿"
+            },
+
+            "red-1" : {
+                "img" : "Icon of red broadcast",
+                "name" : "红色"
+            },
+
+            "red-2" : {
+                "img" : "Icon of red broadcast",
+                "name" : "红色"
+            },
+
+            "red-3" : {
+                "img" : "Icon of red broadcast",
+                "name" : "红色"
+            },
+
+            "red-4" : {
+                "img" : "Icon of red broadcast",
+                "name" : "红色"
+            },
+
+            "red-5" : {
+                "img" : "Icon of red broadcast",
+                "name" : "红色"
+            },
+
+            "red-6" : {
+                "img" : "Icon of red broadcast",
+                "name" : "红色"
+            },
+            
+            "brown" : {
+                "img" : "Icon of brown broadcast",
+                "num" : 1,
+                "name" : "棕色"
+            },
+
+            "blue-1" : {
+                "img" : "Icon of blue broadcast",
+                "name" : "蓝色"
+            },
+
+            "blue-2" : {
+                "img" : "Icon of blue broadcast",
+                "name" : "蓝色"
+            },
+
+        }
+
+        var html3 = "";
+        for (const color3 in broadcast_color) {
+            
+            var colorthing = broadcast_color[color3]
+            var icon3 = colorthing["img"]
+            html3 += `
+                <label class="selector-btn" id="${color3}">
+                    <input type="radio" class="rw-ui" name="broadcasts" onclick="selectbroadcast('${color3}');firstbroadcast('${color3}');colorornot()" autocomplete="off" value="${color3}-bc">
+                    <img src="image/broadcasts/${icon3}.png">
+                    <div class="tips">
+                        <span class="tiptext">${colorthing["name"]}</span>
+                    </div>
+                </label>`;
+            document.getElementById('broadcast-selector').innerHTML = html3;
+            document.querySelector('input[type="radio"][value="white-bc"]').checked = true
+
+        }
+
+        // 物品生成
+
+        var readable_object = {
+            "blue-fruit" : "Blue Fruit icon",
+            "bubble-fruit" : "Bubble Fruit icon",
+            "bubble-weed" : "Bubble Weed icon",
+            "cherry-bomb" : "Cherrybomb icon",
+            "cloak" : "Cloak icon",
+            "dandelion-peach" : "Dandelion Peach icon",
+            "electric-spear" : "Electric Spear icon",
+            "explosive-spear" : "Explosive Spear icon",
+            "spear" : "Spear icon",
+            "rubbish" : "Rubbish icon",
+            "flash-bang" : "Flashbang icon",
+            "glow-weed" : "Glow Weed icon",
+            "gooie-duck" : "Gooieduck icon",
+            "grenade" : "Grenade icon",
+            "karma-flower" : "Karma Flower icon",
+            "lantern" : "Lantern icon",
+            "lilypuck" : "Lilypuck icon",
+            "mushroom" : "Mushroom icon",
+            "neuron-fly" : "Neuron Fly FP icon",
+            "noodlefly-egg" : "Noodlefly Egg icon",
+            "rarefaction-cell" : "Rarefaction Cell icon",
+            "seed" : "Seed icon",
+            "singularity-bomb" : "Singularity Bomb icon",
+            "slime-mold" : "Slime Mold icon",
+            "spore-puff" : "Spore Puff icon",
+            "jellyfish" : "Jellyfish icon",
+            "inspector eye" : "Inspector icon",
+            "overseeer eye" : "Overseer icon",
+            "cheiftain mask" : "Chieftain Scavenger icon",
+            "elite mask" : "Elite Scavenger icon",
+            "vulture mask" : "Vulture icon",
+            "firebug egg" : "Fire Egg icon"
+
+        }
+
+        var object_name = {
+            "blue-fruit" : "蓝果",
+            "bubble-fruit" : "泡水果",
+            "bubble-weed" : "气泡草",
+            "cherry-bomb" : "鞭炮草",
+            "cloak" : "披风",
+            "dandelion-peach" : "蒲公英",
+            "electric-spear" : "电矛",
+            "explosive-spear" : "炸矛",
+            "spear" : "矛",
+            "rubbish" : "垃圾",
+            "flash-bang" : "闪光果",
+            "glow-weed" : "发光果",
+            "gooie-duck" : "悬垂霉菌",
+            "grenade" : "炸弹",
+            "karma-flower" : "业力花",
+            "lantern" : "灯笼",
+            "lilypuck" : "睡莲",
+            "mushroom" : "蘑菇",
+            "neuron-fly" : "神经元",
+            "noodlefly-egg" : "面条蝇卵",
+            "rarefaction-cell" : "质量稀释电池",
+            "seed" : "爆米花种子",
+            "singularity-bomb" : "奇点炸弹",
+            "slime-mold" : "黏菌",
+            "spore-puff" : "烟雾果",
+            "jellyfish" : "水母",
+            "inspector eye" : "督察者感觉叶",
+            "overseeer eye" : "监视者眼球",
+            "cheiftain mask" : "酋长面具",
+            "elite mask" : "精英拾荒面具",
+            "vulture mask" : "秃鹫面具",
+            "firebug egg" : "火虫卵"
+        }
+
+        var html4 = "";
+        for (const color4 in readable_object) {
+            
+            var icon4 = readable_object[color4]
+            html4 += `
+                <label class="selector-btn" id="${color4}">
+                    <input type="radio" class="rw-ui" name="objects" onclick="selectobject('${color4}');firstobject('${color4}');colorornot()" autocomplete="off" value='${color4}'>
+                    <img src="image/objects/${icon4}.png">
+                    <div class="tips">
+                        <span class="tiptext">${object_name[color4]}</span>
+                    </div>
+                </label>`;
+            document.getElementById('object-selector').innerHTML = html4;
+
+        }
+
+        // 迭代器选择器生成
+
+
+        // 文本生成
+
+        // 描述文本生成
+
+    </script>
+
+    <script src="context.js"></script>
+
+    <script>
+
+        // 初始化
+
+        document.querySelector('input[type="radio"][value="pearl"]').checked = true
+        selectkind('pearl')
+        document.querySelector('input[type="radio"][value="yellow"]').checked = true
+        selectpearl('yellow')
+        document.querySelector('input[type="radio"][value="lttm"]').checked = true
+        selectiterator('yellow','lttm')
+
+        // 设置默认选择
+
+        function firstkind(s) {
+            if (s=='pearl') {
+                document.querySelector('input[type="radio"][value="yellow"]').checked = true
+                selectpearl('yellow')
+                document.querySelector('input[type="radio"][value="lttm"]').checked = true
+                selectiterator('yellow','lttm')
+            } else if (s=='broadcast') {
+                document.querySelector('input[type="radio"][value="white-bc"]').checked = true
+                selectbroadcast('white')
+                document.querySelector('input[type="radio"][value="1"]').checked = true
+                selectnum('white','1')
+            } else {
+                document.querySelector('input[type="radio"][value="blue-fruit"]').checked = true
+                selectobject('blue-fruit')
+                document.querySelector(`input[type="radio"][value="lttm"]`).checked = true
+            }
+        }
+
+        function firstpearl(d) {
+
+            const values = ['lttm', 'lttm-past', 'fp', 'lttm-future'];
+            for (const value of values) {
+                const element = document.querySelector(`input[type="radio"][value="${value}"]`);
+                
+                if (element) {
+                    element.checked = true;
+                    selectiterator(d,value)
+                    break; // 找到元素后停止遍历
+                }
+            }
+
+        }
+
+        function firstbroadcast(f) {
+            document.querySelector(`input[type="radio"][value="1"]`).checked = true;
+            selectnum(f,'1')
+        }
+
+        function firstobject(h) {
+            document.querySelector(`input[type="radio"][value="lttm"]`).checked = true
+        }
+
+    </script>
+
+
+</body>
+
+</html>

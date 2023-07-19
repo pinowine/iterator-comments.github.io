@@ -1,0 +1,555 @@
+.maincontainer {
+    position: relative;
+}
+
+#show-button {
+    width: 5rem;
+    height: 3rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 1rem;
+    margin-left: 0.2rem;
+    background-color: var(--dark-grey-color);
+    color: var(--light-white-color)
+}
+
+#show-button:hover {
+    color: var(--sign-color);
+}
+
+#show-button span::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    bottom: 10px;
+    width: 0;
+    height: 2px;
+    transform-origin: left center; /* 从左侧开始伸长 */
+    background-color: var(--sign-color); /* 下划线颜色 */
+    transition: width 0.4s ease; /* 过渡效果 */
+}
+
+#show-button:hover span::after {
+    width: 68px;
+}
+
+.lefttitle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    flex-grow: 0;
+    flex-shrink: 0;
+    opacity: 1;
+}
+
+.lefttitle.fade-out {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.bottom {
+    opacity: 1;
+}
+
+.bottom.fade-out {
+    opacity: 0;
+    transform: translateY(10rem);
+    transition: opacity 0.5s ease, transform 2s ease;
+}
+
+.choosebox-container   {
+    position: absolute;
+    top: 2rem;
+    left: -50rem;
+    height: fit-content;
+    min-height: 93%;
+    z-index: 1;
+    display: flex;
+    flex-shrink: 1;
+    flex-grow: 1;
+    padding-bottom: 1rem;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.choosebox-container.fade-in {
+    opacity: 1;
+    width: 100%;
+    visibility: visible;
+    transform: translateX(50rem);
+    transition: opacity 1s ease-in, visibility 1s ease-in, transform 2s ease;
+}
+
+.choosebox {
+    padding-left: 3%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    flex-grow: 0;
+    align-content: start;
+    justify-content: center;
+    width: 30%;
+    margin-right: 1rem;
+    padding-top: 1rem;
+}
+
+.left-box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left-box form{
+    width: fit-content;
+}
+
+#item-kind-selector {
+    margin-bottom: 1rem;
+}
+
+.descript-box {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    border: 2px solid var(--light-white-color);
+    border-radius: 8px;
+    margin-left: 0.2rem;
+    margin-right: 0.8rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    padding-left: 1rem;
+    margin-bottom: 0.1rem;
+}
+
+#description {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+#description a {
+    text-decoration: underline;
+    color: var(--light-white-color);
+}
+
+#description a:active {
+    color: var(--light-white-color);
+}
+
+
+#description a:hover {
+    color: var(--sign-color);
+    transition: ease;
+}
+
+#comment ul {
+    margin-left: -1.3rem;
+    font-size: smaller;
+    padding-top: -0.5rem;
+}
+
+#comment ul li {
+    list-style-type:circle;
+    margin-top: 0.5rem;
+}
+
+.viewing-box {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem;
+    margin-right: 5%;
+    border: 2px solid var(--light-white-color);
+    border-radius: 8px;
+}
+
+#info {
+    width: 100%;
+    text-align: end;
+    padding-top: 0.5rem;
+}
+
+#context {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    padding-left: 15%;
+    padding-right: 15%;
+    flex-grow: 1;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.choosebox-container p {
+    text-align: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.tips {
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+
+.tips .tiptext {
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+    margin-top: -3rem;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    width: 2.5rem;
+    padding: 0;
+    color: var(--sign-color);
+    z-index: 2;
+    font-size: smaller;
+    -webkit-transform: translateY(10px);
+    -moz-transform: translateY(10px);
+     -ms-transform: translateY(10px);
+      -o-transform: translateY(10px);
+         transform: translateY(10px);
+    -webkit-transition: all .25s ease-out;
+        -moz-transition: all .25s ease-out;
+        -ms-transition: all .25s ease-out;
+        -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+}
+
+.selector-btn:hover .tiptext {
+    visibility: visible;
+    font-weight: bold;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+     -ms-transform: translateY(0px);
+      -o-transform: translateY(0px);
+         transform: translateY(0px);
+}
+
+.tips .tiptext::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    transform-origin: left center; /* 从左侧开始伸长 */
+    background-color: var(--sign-color); /* 下划线颜色 */
+    transition: width 0.4s ease; /* 过渡效果 */
+}
+
+.selector-btn:hover .tiptext::after {
+    width: 100%;
+}
+
+.CNname .tiptext{
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+    margin-top: -1rem;
+    padding: 0;
+    color: var(--sign-color);
+    z-index: 3;
+    font-size: smaller;
+    -webkit-transform: translateY(10px);
+    -moz-transform: translateY(10px);
+        -ms-transform: translateY(10px);
+        -o-transform: translateY(10px);
+            transform: translateY(10px);
+    -webkit-transition: all .25s ease-out;
+        -moz-transition: all .25s ease-out;
+        -ms-transition: all .25s ease-out;
+        -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+    
+}
+
+.CNname:hover .tiptext {
+    visibility: visible;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+     -ms-transform: translateY(0px);
+      -o-transform: translateY(0px);
+         transform: translateY(0px);
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    width: fit-content;
+}
+
+.iterator-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#whotoldyou {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 35%;
+    border: 1px solid var(--light-white-color);
+    border-radius: 8px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+#whotoldyou .tiptext{
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+    margin-top: -1rem;
+    padding: 0;
+    color: var(--sign-color);
+    z-index: 3;
+    font-size: smaller;
+    -webkit-transform: translateY(10px);
+    -moz-transform: translateY(10px);
+        -ms-transform: translateY(10px);
+        -o-transform: translateY(10px);
+            transform: translateY(10px);
+    -webkit-transition: all .25s ease-out;
+        -moz-transition: all .25s ease-out;
+        -ms-transition: all .25s ease-out;
+        -o-transition: all .25s ease-out;
+            transition: all .25s ease-out;
+    
+}
+
+#whotoldyou:hover .tiptext {
+    visibility: visible;
+    -webkit-transform: translateY(0px);
+    -moz-transform: translateY(0px);
+     -ms-transform: translateY(0px);
+      -o-transform: translateY(0px);
+         transform: translateY(0px);
+}
+
+.iterator-select {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+/* BUTTON */
+.selector-btn {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    margin: 4px;
+    position: relative;
+}
+
+label span {
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+    pointer-events: none;
+}
+
+/* 迭代器配色 */
+.bsm {
+    color: rgb(207, 202, 135);
+}
+
+.bsm.white-p {
+    color: var(--light-white-color);
+}
+
+.fp {
+    color:rgb(158, 180, 174)
+}
+
+.fp.white-p {
+    color: var(--light-white-color);
+}
+
+.nsh {
+    color: rgb(154, 197, 154);
+}
+
+.nsh.white-p {
+    color: var(--light-white-color);
+}
+
+.cw {
+    color: rgb(171, 130, 186);
+}
+
+.cw.white-p {
+    color: var(--light-white-color);
+}
+
+.srs {
+    color: rgb(207, 155, 155);
+}
+
+.srs.white-p {
+    color: var(--light-white-color);
+}
+
+.ngi{
+    color: rgb(203, 140, 206);
+}
+
+.ngi.white-p {
+    color: var(--light-white-color);
+}
+
+.uu{
+    color: rgb(77, 139, 76);
+}
+
+.uu.white-p {
+    color: var(--light-white-color);
+}
+
+.hf{
+    color: rgb(136, 111, 178);
+}
+
+.hf.white-p {
+    color: var(--light-white-color);
+}
+
+.gs {
+    color: rgb(203, 166, 123)
+}
+
+.gs.white-p {
+    color: var(--light-white-color);
+}
+
+.hr {
+    color: rgb(137, 154, 106);
+}
+
+.hr.white-p {
+    color: var(--light-white-color);
+}
+
+.si {
+    color: rgb(160, 160, 160);
+}
+
+.si.white-p {
+    color: var(--light-white-color);
+}
+
+.em{
+    color: aliceblue;
+}
+
+.em.white-p {
+    color: var(--light-white-color);
+}
+
+.eoc {
+    color: rgb(234, 223, 209);
+}
+
+.eoc.white-p {
+    color: var(--light-white-color);
+}
+
+.wo {
+    color: rgb(216, 197, 234);
+}
+
+.wo.white-p {
+    color: var(--light-white-color);
+}
+
+
+
+/* 开关 */
+.checklabel {
+    display: flex;
+    margin-right: 0;
+    height: 3rem;
+    align-items: center;
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+    margin-right: 0.5rem;
+}
+
+label.checklabel, input, select{
+    vertical-align: middle;
+    cursor: pointer;
+}
+  .mui-switch {
+    appearance: none;
+    width: 52px;
+    height: 31px;
+    position: relative;
+    border: 1px solid var(--light-white-color);
+    background-color: var(--light-white-color);
+    box-shadow: var(--light-white-color) 0 0 0 0 inset;
+    border-radius: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-clip: content-box;
+    display: inline-block;
+    -webkit-appearance: none;
+    user-select: none;
+    outline: none; }
+    .mui-switch:before {
+      content: '';
+      width: 29px;
+      height: 29px;
+      position: absolute;
+      top: 0px;
+      left: 0;
+      border-radius: 20px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      background-color: var(--light-white-color);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); }
+    .mui-switch:checked {
+      border-color: var(--sign-color);
+      box-shadow: var(--sign-color) 0 0 0 16px inset;
+      background-color: var(--sign-color); }
+      .mui-switch:checked:before {
+        left: 21px; }
+    .mui-switch.mui-switch-animbg {
+      transition: background-color ease 0.4s; }
+      .mui-switch.mui-switch-animbg:before {
+        transition: left 0.3s; }
+      .mui-switch.mui-switch-animbg:checked {
+        box-shadow: var(--light-white-color) 0 0 0 0 inset;
+        background-color:var(--sign-color);
+        transition: border-color 0.4s, background-color ease 0.4s; }
+        .mui-switch.mui-switch-animbg:checked:before {
+          transition: left 0.3s; }
+    .mui-switch.mui-switch-anim {
+      transition: border cubic-bezier(0, 0, 0, 1) 0.4s, box-shadow cubic-bezier(0, 0, 0, 1) 0.4s; }
+      .mui-switch.mui-switch-anim:before {
+        transition: left 0.3s; }
+      .mui-switch.mui-switch-anim:checked {
+        box-shadow: var(--sign-color) 0 0 0 16px inset;
+        background-color: var(--sign-color);
+        transition: border ease 0.4s, box-shadow ease 0.4s, background-color ease 1.2s; }
+        .mui-switch.mui-switch-anim:checked:before {
+          transition: left 0.3s; }
+   
+  /*# sourceMappingURL=mui-switch.css.map */
