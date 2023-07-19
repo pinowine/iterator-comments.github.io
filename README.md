@@ -1,5 +1,5 @@
 # 迭代器的评论
-这是一个建设了80%的轻量级站点，用于在游戏外审阅迭代器们的文本内容。<br><br>
+这是一个建设了70%的轻量级站点，用于在游戏外审阅迭代器们的文本内容。<br><br>
 <b>网站链接</b>：https://pinowine.github.io/iterator-comments.github.io/<br>
 <br>
 <b>亟待完成的：</b><br>
