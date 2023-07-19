@@ -1,3 +1,12 @@
-# iterator-comments.github.io
-这是一个建设了80%的轻量级站点，用于在游戏外审阅迭代器们的文本内容。
-网站链接：https://pinowine.github.io/iterator-comments.github.io/
+# 迭代器的评论
+这是一个建设了80%的轻量级站点，用于在游戏外审阅迭代器们的文本内容。<br><br>
+<b>网站链接</b>：https://pinowine.github.io/iterator-comments.github.io/<br>
+<br>
+<b>亟待完成的：</b><br>
+1. 矛大师广播的位置链接填写；<br>
+2. 还会加入个人的雨学评论，目前已完成两条（汗）。<br>
+<br>
+<b>一些说明：</b><br>
+1. 本人css和js水平有限，屎山代码尽量不要细看了，能用就行（（；<br>
+2. css样式布局等会在一时兴起的时候修改，所以可能有一天布局都会变（虽然不太可能但是预警一下；<br>
+3. 色彩和字体会在长期慢慢调整。
